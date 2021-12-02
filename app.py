@@ -21,6 +21,8 @@ def main() -> str:
         return json.dumps(register(request.json['payload']), ensure_ascii=False)
     if request.json['action'] == 'sync':
         return json.dumps(sync(request.json['payload']), ensure_ascii=False)
+    else:
+        return json.dumps({'ok': False})
 
 
 def login(data: dict) -> dict:
