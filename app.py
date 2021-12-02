@@ -66,4 +66,4 @@ def sync(data: dict) -> dict:
 
 
 if __name__ == '__main__':
-    app.run(port=33507)
+    app.run(port=int(os.environ['PORT']))
