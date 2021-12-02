@@ -44,6 +44,7 @@ def register(data: dict) -> dict:
     if res:
         return {'ok': False, 'msg': 'uid exists, use sync instead.'}
 
+    print(data)
     mongo['inventory'][mongo_collection].insert({'uid': uid, 'inventory': data['inventory'], 'last_update': reg_time})
     return {'ok': True, 'data': {'uid': uid, 'inventory': data['inventory'], 'last_update': reg_time}}
 
