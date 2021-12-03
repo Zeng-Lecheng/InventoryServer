@@ -26,6 +26,11 @@ def main() -> str:
 
 
 def login(data: dict) -> dict:
+    """
+    Example post (with python requests):
+    res = requests.post('http://server.url', headers={'Content-Type': 'application/json', json={'action': 'login',
+    'payload': {'uid': '1139442593200172297', 'inventory': {}, 'last_update': time.time()}}})
+    """
     mongo_res = mongo['inventory'][mongo_collection].find_one({'uid': data['uid']})
     if not mongo_res:
         return {'ok': False, 'msg': 'uid not found, use register instead.'}
@@ -37,6 +42,10 @@ def register(data: dict) -> dict:
     """
     Registering is a simplified one here. We don't use traditional username - password schema. Instead,
     a random uid is given to user for cross device synchronize.
+    Example post (with python requests):
+    res = requests.post('http://server.url', headers={'Content-Type': 'application/json'}, json={'action': 'register',
+    'payload': {'uid': '0', 'inventory': {'apple': {'name': 'apple', 'content': '123'}, 'peach':
+    {'name': 'peach', 'content': '3'}}, 'last_update': time.time()}})
     """
     reg_time = time.time()
     uid = str(hash(reg_time))
@@ -51,7 +60,8 @@ def register(data: dict) -> dict:
 
 def sync(data: dict) -> dict:
     """
-    res = requests.post('http://127.0.0.1:5000', headers={'Content-Type': 'application/json'}, json={'action': 'sync', 'payload': {
+    Example post (with python requests)
+    res = requests.post('http://server.url', headers={'Content-Type': 'application/json'}, json={'action': 'sync', 'payload': {
      'uid': '1139442593200172297', 'inventory': {'apple': {'name': 'apple', 'content': '123'}, 'peach': {'name': 'peach'
      , 'content': '3'}}, 'last_update': time.time()}})
     """
